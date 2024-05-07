@@ -11,6 +11,13 @@ class Place(BaseModel):
     longitude: float
 
 
+class PlaceUpdate(BaseModel):
+    name: str
+    address: str
+    latitude: float
+    longitude: float
+
+
 class Coordinates(BaseModel):
     latitude: float
     longitude: float

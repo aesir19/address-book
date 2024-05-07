@@ -41,7 +41,6 @@ async def find_location(latitude: float, longitude: float):
         logger.error(f"Error getting address", exc_info=True)
 
 
-
 @router.post('/search-and-insert/{place}')
 async def insert_address(place: str, db: Session = Depends(get_db)):
     try:

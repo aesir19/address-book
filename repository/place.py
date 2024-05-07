@@ -63,3 +63,17 @@ def delete(address_id: int, db: Session):
         db.rollback()
         return {"message": f"Database issue"}
 
+
+def search_by_name(place: str, db: Session):
+    '''
+        args:
+            place: Name of place to check
+            db: Database session
+    '''
+    data = db.query(models.Place).filter(models.Place.name.ilike(f"%{place}%")).first()
+
+    if data is None:
+        return {"message": f"No record found for the place {place}"}
+    else:
+        return data
+
