@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 
-from data_store import models
+import models
 from data_store.db_config import engine
 from routers import places
 

@@ -3,7 +3,7 @@ Pasig Address Book
 
 
 ## How to setup
--- Prerequisite: Python version 12
+-- Prerequisite: Python version 8
 1. Clone the repository using this link https://github.com/aesir19/address-book.git
 2. Create a python environment using the command `python -m venv 'your-env-name'`
 3. Activate your virtual environment by navigating through your virtual environment folder > Scripts > then type `activate` if you are in Windows.

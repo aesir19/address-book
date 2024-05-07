@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float
 
-from .db_config import Base
+from data_store.db_config import Base
 
 class Place(Base):
     __tablename__ = "places"
