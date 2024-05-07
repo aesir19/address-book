@@ -9,6 +9,10 @@ from logger_conf import logger
 
 
 def get_all(db: Session):
+    '''
+        args: 
+            db: Database session
+    '''
     try:
         return db.query(models.Place).order_by(models.Place.name).all()
     except Exception:
@@ -16,6 +20,11 @@ def get_all(db: Session):
 
 
 def insert(place: str, db: Session):
+    '''
+        args: 
+            place: Name of place to store
+            db: Database session
+    '''
     address_details = get_coordinates(place)
     db_id = randint(1, 9999999)
 
@@ -36,6 +45,11 @@ def insert(place: str, db: Session):
 
 
 def delete(address_id: int, db: Session):
+    '''
+        args:
+            address_id: Address id to delete
+            db: Database session
+    '''
     data = db.query(models.Place).filter(models.Place.id == address_id).first()
 
     if data is None:

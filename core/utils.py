@@ -4,9 +4,6 @@ def text_split(text: str) -> list:
     return text.split(",")
 
 
-print(text_split("Mercury Drug, Bacoor, Cavite, Calabarzon, Pilipinas"))
-
-
 def is_valid(address: list) -> bool:
     return True if 8 <= len(address) <= 9 else False
 
