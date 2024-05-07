@@ -26,3 +26,4 @@ def get_address(latitude, longitude) -> dict:
             return address_details
     except Exception:
         logger.error("Geolocator issue", exc_info=True)
+

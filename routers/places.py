@@ -10,6 +10,11 @@ from core.geolocator import *
 router = APIRouter(tags=['Address Book'])
 
 
+@router.get('/get-all-address')
+async def get_records(db: Session = Depends(get_db)):
+    return get_all(db)
+
+
 @router.get('/find-coordinates/{place}')
 async def find_coordinates(place: str):
     try:
@@ -41,10 +46,6 @@ async def find_location(latitude: float, longitude: float):
 async def insert_address(place: str, db: Session = Depends(get_db)):
     try:
         logger.info(f"Getting and storing coordinates for {place}")
-        address_details = get_coordinates(place)
-        details = [place, address_details.address, address_details.latitude,
-                   address_details.longitude]
-        print(details)
         return insert(place, db)
     except Exception:
         logger.error(f"Error inserting data", exc_info=True)
@@ -54,6 +55,6 @@ async def insert_address(place: str, db: Session = Depends(get_db)):
 async def delete_address(id: int, db: Session = Depends(get_db)):
     try:
         logger.info(f"Deleting address id {id}")
-        delete(id, db)
+        return delete(id, db)
     except Exception:
         logger.error("Error deleting", exc_info=True)

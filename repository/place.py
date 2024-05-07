@@ -8,6 +8,13 @@ from core.geolocator import *
 from logger_conf import logger
 
 
+def get_all(db: Session):
+    try:
+        return db.query(models.Place).order_by(models.Place.name).all()
+    except Exception:
+        logger.error(f"Error getting data",exc_info=True)
+
+
 def insert(place: str, db: Session):
     address_details = get_coordinates(place)
     db_id = randint(1, 9999999)
@@ -28,12 +35,13 @@ def insert(place: str, db: Session):
         return None
 
 
-def delete(id: int, db: Session):
-    address_id = db.query(Place).filter(Place.id == id).first()
-    if address_id is None:
+def delete(address_id: int, db: Session):
+    data = db.query(models.Place).filter(models.Place.id == address_id).first()
+
+    if data is None:
         return {"message": f"No record found for address id {id}"}
     try:
-        db.delete(address_id)
+        db.delete(data)
         db.commit()
         return {"message": f"Successfully deleted address id {id}"}
     except Exception:
