@@ -2,7 +2,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 from random import randint
 
-from schemas import Place
+from schemas import *
 import models
 from core.geolocator import *
 from logger_conf import logger
@@ -64,16 +64,28 @@ def delete(address_id: int, db: Session):
         return {"message": f"Database issue"}
 
 
-def search_by_name(place: str, db: Session):
+def search_loc(place: str, db: Session) -> int:
     '''
         args:
             place: Name of place to check
             db: Database session
     '''
     data = db.query(models.Place).filter(models.Place.name.ilike(f"%{place}%")).first()
-
     if data is None:
-        return {"message": f"No record found for the place {place}"}
-    else:
-        return data
+        return None
+    
+    return data.id
 
+
+def update(id: int, db: Session, place: PlaceUpdate):
+    updated = db.query(models.Place).filter(models.Place.id == id).first()
+    try:
+        setattr(updated, 'address',place.address)
+        setattr(updated, 'latitude',place.latitude)
+        setattr(updated, 'longitude',place.longitude)
+        db.commit()
+        logger.info(f'Record updated')
+
+        return place
+    except Exception:
+        logger.error('Error updating record', exc_info=True)

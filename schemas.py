@@ -12,7 +12,6 @@ class Place(BaseModel):
 
 
 class PlaceUpdate(BaseModel):
-    name: str
     address: str
     latitude: float
     longitude: float

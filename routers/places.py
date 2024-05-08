@@ -45,7 +45,11 @@ async def find_location(latitude: float, longitude: float):
 async def insert_address(place: str, db: Session = Depends(get_db)):
     try:
         logger.info(f"Getting and storing coordinates for {place}")
-        return insert(place, db)
+        exisiting_id = search_loc(place, db)
+        if exisiting_id is None:
+            return insert(place, db)
+        else:
+            return {'message': 'Place is already existing'}
     except Exception:
         logger.error(f"Error inserting data", exc_info=True)
 
@@ -57,3 +61,18 @@ async def delete_address(id: int, db: Session = Depends(get_db)):
         return delete(id, db)
     except Exception:
         logger.error("Error deleting", exc_info=True)
+
+
+@router.put('/update-address/{place}')
+async def update_address(place: str, request: PlaceUpdate, db: Session = Depends(get_db)):
+    try:
+        logger.info(f'Updating record for {place}...')
+        print(request)
+        id = search_loc(place, db)
+        if id is not None:
+
+            return update(id, db, request)
+        else:
+            return {'message': f'No location found, please try again'}
+    except Exception:
+        logger.error("Error searching for record", exc_info=True)
