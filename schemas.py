@@ -21,6 +21,7 @@ class Coordinates(BaseModel):
     latitude: float
     longitude: float
 
+
 # Scrapped due to time constraint and complexity of the used library
 # class SpecificPlace(BaseModel):
 #     id: int

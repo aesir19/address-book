@@ -54,7 +54,7 @@ async def insert_address(place: str, db: Session = Depends(get_db)):
         logger.error(f"Error inserting data", exc_info=True)
 
 
-@router.delete('/delete-place/{id}')
+@router.delete('/delete-address/{id}')
 async def delete_address(id: int, db: Session = Depends(get_db)):
     try:
         logger.info(f"Deleting address id {id}")

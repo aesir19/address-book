@@ -77,7 +77,13 @@ def search_loc(place: str, db: Session) -> int:
     return data.id
 
 
-def update(id: int, db: Session, place: PlaceUpdate):
+def update(id: int, place: PlaceUpdate, db: Session, ):
+    '''
+        args:
+            id: Record in database to be updated
+            place: Schema for updating
+            db: Database session
+    '''
     updated = db.query(models.Place).filter(models.Place.id == id).first()
     try:
         setattr(updated, 'address',place.address)
