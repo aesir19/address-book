@@ -19,7 +19,7 @@ async def get_records(db: Session = Depends(get_db)):
 async def find_coordinates(place: str):
     try:
         logger.info(f"Getting coordinates for {place}")
-        address_details = get_coordinates(place)
+        address_details = GeoLocator.get_coordinates(place)
         return {
             "address": address_details.address,
             "coordinates": (address_details.latitude, address_details.longitude)
@@ -32,7 +32,7 @@ async def find_coordinates(place: str):
 async def find_location(latitude: float, longitude: float):
     try:
         logger.info(f"Getting address for coordinates ({latitude}, {longitude})")
-        address_details = get_address(latitude,longitude)
+        address_details = GeoLocator.get_address(latitude,longitude)
         return {
             "address": address_details.address,
             "coordinates": (address_details.latitude, address_details.longitude)

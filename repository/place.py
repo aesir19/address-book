@@ -25,7 +25,7 @@ def insert(place: str, db: Session):
             place: Name of place to store
             db: Database session
     '''
-    address_details = get_coordinates(place)
+    address_details = GeoLocator.get_coordinates(place)
     db_id = randint(1, 9999999)
 
     try:
